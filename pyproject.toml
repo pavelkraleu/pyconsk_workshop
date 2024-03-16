@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "pyconsk-workshop"
+version = "0.1.0"
+description = ""
+authors = ["Pavel Kral <pavel@pavelkral.eu>"]
+license = "GPL"
+readme = "README.md"
+packages = [{include = "pyconsk_workshop"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+llama-index = "^0.10.19"
+wikipedia = "^1.4.0"
+streamlit = "^1.32.2"
+llama-index-llms-openai = "^0.1.9"
+watchdog = "^4.0.0"
+llama-index-readers-web = "^0.1.6"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
