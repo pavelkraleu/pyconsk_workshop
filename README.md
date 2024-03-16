@@ -4,6 +4,8 @@
 
 ![](b.png)
 
+![](qr_link.png)
+
 ```
 export OPENAI_API_KEY="abc"
 

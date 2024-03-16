@@ -6,7 +6,7 @@ from llama_index.core import VectorStoreIndex, StorageContext, load_index_from_s
 from llama_index.core.agent import ReActAgent
 from llama_index.core.response_synthesizers import TreeSummarize
 from llama_index.core.schema import TextNode
-from llama_index.core.tools import RetrieverTool, ToolMetadata
+from llama_index.core.tools import RetrieverTool, ToolMetadata, FunctionTool
 from llama_index.llms.openai import OpenAI
 from llama_index.readers.web import SimpleWebPageReader
 from pydantic import BaseModel
@@ -58,6 +58,8 @@ class ItineraryStop(BaseModel):
     Itinerary stop on a trip to given city.
     time_arrival and time_end MUST be in 24-hour format.
     name and description should contain emojis.
+    name is specific attraction from itinerary
+    description describes activity which group can do there
     """
 
     time_arrival: str
@@ -67,7 +69,7 @@ class ItineraryStop(BaseModel):
 
 
 class TravelItinerary(BaseModel):
-    """Itinerary when visiting a given city"""
+    """Itinerary when visiting a given city consisting out of specific stops"""
 
     stops: list[ItineraryStop]
 
@@ -117,6 +119,15 @@ def generate_itinerary(city: str, group_type, start_time, end_time):
         places_index = VectorStoreIndex(places_nodes)
 
         places_index.storage_context.persist(persist_dir=index_dir_name)
+
+    def check_opening_hours_tomorrow(place_name: str) -> bool:
+        """
+        Checks opening hours of place_name.
+        Returns True if Place is open tomorrow.
+        """
+        pass
+
+    tool_check_opening_hours_tomorrow = FunctionTool.from_defaults(fn=check_opening_hours_tomorrow)
 
     query_engine_tools = [
         RetrieverTool(
