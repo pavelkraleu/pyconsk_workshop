@@ -1222,6 +1222,21 @@ selenium = ">=4.17.2,<5.0.0"
 urllib3 = ">=1.1.0"
 
 [[package]]
+name = "llama-index-tools-wikipedia"
+version = "0.1.3"
+description = "llama-index tools wikipedia integration"
+optional = false
+python-versions = ">=3.8.1,<4.0"
+files = [
+    {file = "llama_index_tools_wikipedia-0.1.3-py3-none-any.whl", hash = "sha256:f0f4bd4c8a9c8bb9760440627a4a90a3a8c51de1b852bb5af6f3f1eef20facdf"},
+    {file = "llama_index_tools_wikipedia-0.1.3.tar.gz", hash = "sha256:91a4566a66946b4dc5b3e909e47d72e1f238f1f8c6cda733f777182da64f8617"},
+]
+
+[package.dependencies]
+llama-index-core = ">=0.10.1,<0.11.0"
+wikipedia = ">=1.4,<2.0"
+
+[[package]]
 name = "llama-parse"
 version = "0.3.9"
 description = "Parse files into RAG-Optimized formats."
@@ -3325,4 +3340,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "b613292f08d07b3b3c51e7d8672a06f24236a01befc5fdfacba2bf511b7381fa"
+content-hash = "b9709fbbb3386e2a1ea4fbc3e71e5f49735f99217970148b934799fa370b6de1"

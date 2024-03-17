@@ -127,7 +127,11 @@ def generate_itinerary(city: str, group_type, start_time, end_time):
         """
         pass
 
-    tool_check_opening_hours_tomorrow = FunctionTool.from_defaults(fn=check_opening_hours_tomorrow)
+    def load_wikipedia_details(place_name: str) -> bool:
+        """
+        Loads information from Wikipedia
+        """
+        pass
 
     query_engine_tools = [
         RetrieverTool(
@@ -143,6 +147,9 @@ def generate_itinerary(city: str, group_type, start_time, end_time):
         ),
     ]
 
+    # query_engine_tools += [FunctionTool.from_defaults(fn=load_wikipedia_details)]
+    # query_engine_tools += [FunctionTool.from_defaults(fn=check_opening_hours_tomorrow)]
+
     agent_prompt = f"""
     Generate complete travel itinerary, starting at {start_time} and ending at {end_time} to a single day trip to {city}.
     Trip is prepared for {group_type}.
@@ -155,6 +162,13 @@ def generate_itinerary(city: str, group_type, start_time, end_time):
 
     agent = ReActAgent.from_tools(query_engine_tools, llm=llm_4_turbo, verbose=True, max_iterations=20)
     agent_response = agent.chat(agent_prompt).response
+    print(agent_response)
+
+    # wiki_prompt = """
+    # Try to add enhance information to places we visit from Wikipedia.
+    # """
+    # agent_response = agent.chat(wiki_prompt).response
+    # print(agent_response)
 
     summarizer = TreeSummarize(output_cls=TravelItinerary, llm=llm_4_turbo)
     response = summarizer.get_response("Parse travel itinerary", [agent_response])
